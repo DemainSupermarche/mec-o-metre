@@ -60,8 +60,10 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",
 const stars=n=>"★".repeat(n)+"☆".repeat(3-n);
 function card(a,btns){return `<div class="item"><div class="meta"><span>${esc(a.date)}</span><span class="stars">${stars(a.note|0)}</span></div><p>${esc(a.texte)}</p><div class="actions">${btns}</div></div>`}
 async function api(method,body){
-  const r=await fetch("/api/avis-admin",{method,headers:{"x-admin-key":key,"content-type":"application/json"},body:body?JSON.stringify(body):undefined});
-  if(r.status===401) throw new Error("Clé incorrecte, ou variable ADMIN_KEY absente des réglages Netlify.");
+  const r=await fetch("/api/avis-admin",{method,headers:{"x-admin-key":encodeURIComponent(key),"content-type":"application/json"},body:body?JSON.stringify(body):undefined});
+  if(r.status===503) throw new Error("Le site ne voit pas la variable ADMIN_KEY : vérifie qu'elle a une valeur pour « Production », puis redéploie le site.");
+  if(r.status===401) throw new Error("La clé ne correspond pas à la valeur de ADMIN_KEY. Vérifie les majuscules et les espaces.");
+  if(r.status===404) throw new Error("La page d'administration ne trouve pas le serveur : les fonctions ne sont pas déployées.");
   if(!r.ok) throw new Error("Le serveur a refusé l'action. Réessaie dans un instant.");
   return r.json();
 }

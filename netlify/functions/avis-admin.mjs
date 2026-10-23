@@ -7,8 +7,11 @@ const json = (o, status = 200) =>
   Response.json(o, { status, headers: { "cache-control": "no-store" } });
 
 export default async (req) => {
-  const cle = globalThis.Netlify?.env.get("ADMIN_KEY") ?? process.env.ADMIN_KEY;
-  if (!cle || req.headers.get("x-admin-key") !== cle) return json({ error: "Clé incorrecte" }, 401);
+  const cle = String(globalThis.Netlify?.env.get("ADMIN_KEY") ?? process.env.ADMIN_KEY ?? "").trim();
+  if (!cle) return json({ error: "absente" }, 503);
+  let recue = "";
+  try { recue = decodeURIComponent(req.headers.get("x-admin-key") || "").trim(); } catch {}
+  if (recue !== cle) return json({ error: "Clé incorrecte" }, 401);
 
   const store = getStore({ name: "avis", consistency: "strong" });
   const stats = async () => (await store.get("stats", { type: "json" })) || { sum: 0, count: 0 };
