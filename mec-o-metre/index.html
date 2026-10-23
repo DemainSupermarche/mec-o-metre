@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Le Mec-o-mètre</title>
+<meta name="description" content="15 situations du quotidien pour savoir si ton mec est un mec bien, un beauf, un pacha ou pire. Un quiz pour rire, avec les vrais signaux d'alerte.">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#C81F63">
+<meta property="og:title" content="Le Mec-o-mètre">
+<meta property="og:description" content="Ton mec, c'est un mec bien ou un beauf ? 15 situations pour le savoir.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%23C81F63'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout : une colonne façon test de magazine, une situation par écran */
+:root{
+  --bg:#FBF4F6; --card:#FFFFFF; --ink:#2B1631; --muted:#7A6680; --line:#EBDCE3;
+  --accent:#C81F63; --accent-soft:#FBE3EC; --plum:#4B2A5C;
+  --green:#22865A; --orange:#D46A12; --red:#C2303A; --flag:#8E1730;
+  --display:"Shrikhand", "Georgia", serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1C1220; --card:#28192E; --ink:#F6EAF0; --muted:#B49BBC; --line:#3D2A45;
+  --accent:#FF5C97; --accent-soft:#3E1E33; --plum:#D7B6E6;
+  --green:#4FC48C; --orange:#F2A04D; --red:#FF6B74; --flag:#FF8FA3; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1C1220; --card:#28192E; --ink:#F6EAF0; --muted:#B49BBC; --line:#3D2A45;
+  --accent:#FF5C97; --accent-soft:#3E1E33; --plum:#D7B6E6;
+  --green:#4FC48C; --orange:#F2A04D; --red:#FF6B74; --flag:#FF8FA3; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 40px}
+.wrap{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-family:var(--display);font-size:22px;color:var(--accent);letter-spacing:.01em}
+.exit{border:1.5px solid var(--ink);background:var(--card);color:var(--ink);font:600 13px var(--body);
+  padding:8px 12px;border-radius:999px;cursor:pointer}
+.exit:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+h1,h2{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(34px,9vw,48px);color:var(--plum)}
+h2{font-size:clamp(24px,6.5vw,31px);color:var(--ink)}
+p{margin:0}
+.lead{font-size:18px;color:var(--ink)}
+.small{font-size:14px;color:var(--muted)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.btn{display:inline-flex;justify-content:center;align-items:center;border:0;border-radius:14px;
+  background:var(--accent);color:#fff;font:700 17px var(--body);padding:16px 22px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.rules{display:grid;gap:10px;padding:0;margin:0;list-style:none}
+.rules li{display:flex;gap:12px;align-items:baseline}
+.rules b{font-family:var(--display);font-weight:400;color:var(--accent);font-size:20px;min-width:22px}
+
+.progress{display:flex;flex-direction:column;gap:8px}
+.prog-row{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar span{display:block;height:100%;background:var(--accent);transition:width .3s}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:var(--card);color:var(--ink);
+  border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;font:500 16px/1.35 var(--body);cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover{border-color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.letter{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+  background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:14px}
+.opt.sel .letter{background:var(--accent);color:#fff}
+.skip{background:none;border:0;color:var(--muted);font:500 15px var(--body);text-decoration:underline;cursor:pointer;padding:6px 0;align-self:flex-start}
+.nav{display:flex;justify-content:space-between;gap:10px}
+
+.result{background:var(--card);border-radius:20px;padding:24px 20px;display:flex;flex-direction:column;gap:16px;border-top:6px solid var(--zone)}
+.zone{display:inline-flex;align-self:flex-start;gap:6px;align-items:center;font-size:13px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--zone)}
+.zone::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--zone)}
+.meters{display:grid;gap:14px}
+.meter .ends{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
+.track{position:relative;height:10px;border-radius:10px;
+  background:linear-gradient(90deg,var(--green),var(--orange),var(--red))}
+.dot{position:absolute;top:50%;width:20px;height:20px;border-radius:50%;background:var(--card);
+  border:4px solid var(--ink);transform:translate(-50%,-50%)}
+.help{background:var(--accent-soft);border-radius:14px;padding:16px;display:grid;gap:10px}
+.help .num{font-family:var(--display);font-size:34px;color:var(--accent);line-height:1}
+.help a{color:var(--accent);font-weight:600}
+ul.tips{margin:0;padding-left:20px;display:grid;gap:6px}
+.foot{font-size:13px;color:var(--muted);text-align:center}
+details.disc{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+details.disc summary{cursor:pointer;font-weight:600;color:var(--ink)}
+details.disc p{margin-top:8px}
+
+/* écran neutre de sortie rapide */
+.neutral{font-family:Georgia,serif;color:#333;background:#fff;max-width:560px;margin:0 auto;padding:10px 0}
+.neutral h3{font-size:26px;margin:8px 0 12px}
+/* avis */
+.avis{display:grid;gap:14px;border-top:1px solid var(--line);padding-top:20px}
+.avis-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px 12px;flex-wrap:wrap}
+.avg{font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.avg b{color:var(--accent);font-size:20px}
+.items{display:grid;gap:10px}
+.avis-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:6px;min-width:0}
+.avis-item .meta{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.avis-item time{font-weight:700;font-size:14px}
+.avis-item p{font-size:15px;overflow-wrap:anywhere}
+.stars{color:var(--accent);letter-spacing:2px;font-size:16px;white-space:nowrap}
+.stars .off{color:var(--line)}
+.avis-form{background:var(--card);border-radius:20px;padding:20px;display:grid;gap:12px;position:relative}
+.avis-form h2{font-size:24px}
+.star-pick{display:flex;gap:6px}
+.star-pick button{background:none;border:0;font-size:42px;line-height:1;color:var(--line);cursor:pointer;padding:2px 4px;border-radius:8px}
+.star-pick button.on{color:var(--accent)}
+.avis-form label{font-weight:600;font-size:15px}
+textarea{width:100%;font:16px/1.45 var(--body);color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px;resize:vertical}
+textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.chars{font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+@media (prefers-reduced-motion:reduce){.bar span{transition:none}}
+</style>
+
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<script>
+// [texte, points, profil, emprise]
+const Q=[
+ {ax:"C",t:"Ton téléphone vibre pendant le dîner. Il…",o:[["Ne le remarque même pas",0],["Demande « C'est qui ? », juste par curiosité",1],["Soupire et fait la tête",2,"nice"],["Exige de voir le message",3,"",1]]},
+ {ax:"C",t:"Tu sors entre filles jusqu'à 2h du matin. Il…",o:[["Te dit « amuse-toi bien ! »",0],["T'envoie un texto pour savoir si tu es bien rentrée",0],["T'appelle toutes les heures",2,"nice"],["S'arrange pour que tu n'y ailles pas",3,"",1]]},
+ {ax:"P",t:"Le frigo est vide. Il…",o:[["Fait les courses sans qu'on le lui demande",0],["Y va si tu lui fais la liste",1,"pacha"],["Te demande « tu passes au magasin ? »",2,"pacha"],["Se commande une pizza, pour lui seul",2,"pacha"]]},
+ {ax:"C",t:"Tu es prête pour sortir. Sur ta tenue, il…",o:[["Te fait un compliment, ou ne dit rien",0],["« T'es sûre ? Il va faire froid »",1,"nice"],["« Tu cherches à plaire à qui ? »",2,"miso"],["Te demande de te changer",3,"",1]]},
+ {ax:"CP",t:"Côté argent, chez vous…",o:[["La répartition a été discutée ensemble",0],["Chacun ses comptes, sans souci",0],["Il gère tout « parce qu'il s'y connaît mieux »",2,"masc"],["Tu dois justifier chaque dépense",3,"",1]]},
+ {ax:"C",t:"Tu n'as pas envie ce soir. Il…",o:[["Dit « pas de souci » et te fait un câlin",0],["Est un peu déçu, puis passe à autre chose",1,"nice"],["Insiste jusqu'à ce que tu cèdes",3,"",1],["Boude le lendemain",2,"nice"]]},
+ {ax:"C",t:"Tes amies, pour lui…",o:[["Il les apprécie, ou les laisse tranquilles",0],["Il en trouve une un peu pénible",1],["« Elles te montent la tête »",2,"miso"],["Tu les vois de moins en moins à cause de lui",3,"",1]]},
+ {ax:"C",t:"Une dispute éclate. Il…",o:[["Discute, même s'il est vexé",0],["Claque la porte, puis revient s'excuser",1,"beauf"],["Te fait passer pour l'hystérique",2,"miso"],["Casse des objets ou te fait peur",3,"",1]]},
+ {ax:"P",t:"Ses potes font une blague sexiste. Il…",o:[["Les recadre",0],["Ne rit pas",0],["Rit avec eux",1,"beauf"],["En rajoute une couche",2,"beauf"]]},
+ {ax:"P",t:"C'est bientôt l'anniversaire de sa mère. Il…",o:[["S'en occupe",0],["Y pense si tu le lui rappelles",1,"pacha"],["Te laisse acheter le cadeau",2,"pacha"],["« C'est un truc de filles, ça »",2,"miso"]]},
+ {ax:"C",t:"Ses vidéos préférées sur YouTube ou TikTok…",o:[["Bricolage, jeux vidéo, documentaires",0],["Du stand-up un peu lourd",1,"beauf"],["Des coachs en séduction",2,"masc"],["Des influenceurs « alpha » qui parlent de hiérarchie naturelle",3,"masc"]]},
+ {ax:"P",t:"Tu donnes ton avis sur un sujet qu'il connaît. Il…",o:[["Écoute et débat",0],["Te coupe parfois, puis s'en rend compte",1,"faux"],["T'explique la vie avec condescendance",2,"faux"],["« Tu n'y connais rien »",2,"miso"]]},
+ {ax:"CP",t:"Tu décroches une promotion, mieux payée que lui. Il…",o:[["Ouvre le champagne",0],["« Tu seras moins à la maison du coup ? »",1,"pacha"],["Fait une blague sur « comment tu l'as obtenue »",2,"miso"],["Te demande de la refuser",3,"",1]]},
+ {ax:"P",t:"Tu es malade, clouée au lit. Il…",o:[["Gère tout, soupe comprise",0],["Fait le strict minimum",1,"pacha"],["Te demande ce qu'il y a à manger",2,"pacha"],["Est soudain aussi malade que toi, en pire",2,"beauf"]]},
+ {ax:"C",t:"Quand tu lui reproches quelque chose, il…",o:[["Reconnaît et s'excuse",0],["Se défend, puis admet",1,"faux"],["Retourne la faute contre toi",2,"miso"],["Tu finis par t'excuser, sans trop savoir pourquoi",3,"",1]]}
+];
+
+const P={
+ bien:{zone:"Zone verte",c:"--green",n:"Un mec bien",d:"Il partage la charge mentale, respecte ton « non » et se réjouit de ta réussite au lieu de s'en sentir menacé. Rare, précieux, à garder.",tips:["Dis-lui ce que tu apprécies : ça marche aussi dans ce sens-là.","Reste attentive quand même : un test ne remplace pas ton ressenti."]},
+ chantier:{zone:"Zone verte",c:"--green",n:"Le mec en chantier",d:"Quelques réflexes datés, mais il écoute et se remet en question. Les travaux avancent, le permis de construire est validé.",tips:["Nomme les situations précises qui te gênent, à froid.","Regarde s'il progresse dans le temps : c'est ça qui compte."]},
+ beauf:{zone:"Zone orange",c:"--orange",n:"Le Beauf",d:"Pas méchant, mais lourd. Blagues de comptoir, « c'est de l'humour ! » et rhume du siècle. Il peut évoluer si on lui explique sans le ménager.",tips:["Ne ris pas par politesse : le silence est un message.","Demande-lui d'expliquer la blague. Ça les tue souvent."]},
+ pacha:{zone:"Zone orange",c:"--orange",n:"Le Pacha",d:"Progressiste en théorie, mais c'est toi qui gères les courses, la maison et les anniversaires de sa famille. La charge mentale, il ne la voit pas : il la consomme.",tips:["Fais la liste de tout ce que tu gères, et posez-la ensemble.","Répartissez par domaines entiers, pas par tâches « coups de main »."]},
+ nice:{zone:"Zone orange",c:"--orange",n:"Le Nice Guy",d:"Gentil… tant que ça lui rapporte quelque chose. Sinon, il boude, s'inquiète un peu trop ou te fait sentir coupable. Sa gentillesse a un ticket de caisse.",tips:["Observe ce qui se passe quand tu lui dis non.","Ta liberté n'a pas à être négociée contre sa tranquillité."]},
+ faux:{zone:"Zone orange",c:"--orange",n:"Le Faux Allié",d:"Discours impeccable, mais il te coupe la parole et t'explique ton propre métier. Féministe en public, mansplaineur en privé.",tips:["Termine ta phrase quand il te coupe, calmement.","Demande-lui son avis seulement quand tu le veux vraiment."]},
+ masc:{zone:"Zone rouge",c:"--red",n:"Le Masculiniste 2.0",d:"Biberonné aux influenceurs « alpha », il parle de valeur sur le marché, de hiérarchie naturelle et de femmes qui doivent rester à leur place. Les idées qu'il consomme finissent souvent par passer dans les actes.",tips:["Écoute comment il parle des femmes en général : il parle aussi de toi.","Tes amies et ta famille sont de bons regards extérieurs."]},
+ miso:{zone:"Zone rouge",c:"--red",n:"Le Misogyne assumé",d:"Mépris ouvert, blagues qui rabaissent, « les femmes sont trop émotives ». Il ne se cache même pas. Ce n'est pas un défaut de communication, c'est une vision du monde.",tips:["Tu n'as pas à le convaincre que tu mérites le respect.","Parle de ce que tu vis à des personnes de confiance."]},
+ ctrl:{zone:"Signal d'alerte",c:"--flag",n:"Attention : signaux d'emprise",serious:1,d:"Certaines de tes réponses décrivent des comportements de contrôle : surveiller, isoler, imposer, faire peur ou te faire douter de toi. Ce n'est pas un trait de caractère amusant, ce sont des signaux reconnus de violence conjugale. Tu n'es pas responsable de ce qu'il fait.",tips:["Parles-en à quelqu'un de confiance.","Note les faits et les dates quelque part de sûr.","Si tu es en danger immédiat, appelle le 17."]}
+};
+const DISC=`<details class="disc"><summary>Avertissement</summary>
+<p>Ce quiz est un divertissement. Il ne constitue ni un diagnostic psychologique, ni un avis médical, juridique ou professionnel, et ne permet pas de qualifier une personne réelle. Les profils sont des caricatures volontairement humoristiques.</p>
+<p>Ses résultats reposent uniquement sur tes réponses et peuvent ne pas refléter la réalité de ta relation. Seule toi sais ce que tu vis.</p>
+<p>Tes réponses au quiz ne sont ni collectées ni enregistrées : elles disparaissent dès que tu quittes la page. Seul le nombre total de quiz terminés est compté, de façon anonyme.</p>
+<p>Les avis sont anonymes : seuls la note, le commentaire et la date sont conservés. Les commentaires sont relus avant publication, et ceux qui citent ou permettent de reconnaître une personne ne sont pas publiés.</p>
+<p>Si tu te sens en danger, appelle le 17. Pour parler de violences conjugales : 3919 (gratuit, anonyme, 24h/24) ou SMS au 114.</p>
+</details>
+<details class="disc"><summary>Mentions légales</summary>
+<p><b>Éditeur</b> : Rita Sorro. Contact : sonorite.pantin@gmail.com</p>
+<p><b>Hébergeur</b> : Netlify, Inc., 101 2nd Street, San Francisco, CA 94105, États-Unis. Contact : support@netlify.com</p>
+<p><b>Données personnelles</b> : ce site n'enregistre aucune réponse au quiz. Il conserve uniquement le nombre total de quiz terminés et les avis déposés volontairement (note, commentaire, date), sans nom, adresse IP ni identifiant. Les adresses mail, numéros de téléphone et liens sont masqués automatiquement. Il n'utilise ni cookie ni outil de mesure d'audience.</p>
+<p><b>Avis</b> : les commentaires sont modérés avant publication. Pour faire retirer un avis, écris à sonorite.pantin@gmail.com en indiquant sa date et son texte.</p>
+</details>`;
+const PRIO=["miso","masc","pacha","faux","nice","beauf"];
+
+let ans, order, i;
+const app=document.getElementById("app");
+const L="ABCD";
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+const header=()=>`<div class="top"><span class="brand">Mec-o-mètre</span><button class="exit" id="exit" type="button">✕ Sortie rapide</button></div>`;
+
+function intro(){
+ ans=new Array(Q.length).fill(undefined); i=0;
+ order=Q.map(q=>shuffle(q.o.map((_,k)=>k)));
+ app.innerHTML=header()+`
+ <span class="eyebrow">Le test que ses potes ne lui feront jamais passer</span>
+ <h1>Ton mec, c'est un mec bien ou un beauf ?</h1>
+ <p class="lead">15 situations du quotidien. Réponds selon ce que tu as vraiment vu, pas selon ce qu'il dirait.</p>
+ <ul class="rules">
+  <li><b>1</b><span>Une seule réponse par situation.</span></li>
+  <li><b>2</b><span>Jamais arrivé ? Clique sur « Je ne sais pas ».</span></li>
+  <li><b>3</b><span>Tes réponses ne sont pas enregistrées. Le bouton « Sortie rapide » cache la page en un clic.</span></li>
+ </ul>
+ <button class="btn" id="go" type="button">Commencer le test</button>
+ `+avisList()+`<p class="foot">Un quiz pour rire, pas un diagnostic.</p>`+COUNT+DISC;
+ showCount(); loadAvis();
+ document.getElementById("go").onclick=()=>{i=0;question()};
+ bindExit();
+}
+
+function question(){
+ const q=Q[i], pct=Math.round(i/Q.length*100);
+ app.innerHTML=header()+`
+ <div class="progress"><div class="prog-row"><span>Situation ${i+1} / ${Q.length}</span><span>${pct} %</span></div>
+ <div class="bar"><span style="width:${pct}%"></span></div></div>
+ <h2>${esc(q.t)}</h2>
+ <div class="opts">${order[i].map((k,n)=>`<button type="button" class="opt${ans[i]===k?" sel":""}" data-k="${k}"><span class="letter">${L[n]}</span><span>${esc(q.o[k][0])}</span></button>`).join("")}</div>
+ <button class="skip" id="skip" type="button">Je ne sais pas / jamais arrivé</button>
+ <div class="nav">${i>0?`<button class="btn ghost" id="back" type="button">← Retour</button>`:"<span></span>"}</div>`;
+ app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{ans[i]=+b.dataset.k;b.classList.add("sel");setTimeout(next,180)});
+ document.getElementById("skip").onclick=()=>{ans[i]=null;next()};
+ const bk=document.getElementById("back"); if(bk) bk.onclick=()=>{i--;question()};
+ bindExit(); window.scrollTo(0,0);
+}
+function next(){ i++; i<Q.length?question():result(); }
+
+function compute(){
+ let emprise=false, sum=0, n=0, c=[0,0], p=[0,0]; const tags={};
+ Q.forEach((q,k)=>{const a=ans[k]; if(a==null) return; const [,pts,tag,e]=q.o[a];
+  n++; sum+=pts; if(e) emprise=true;
+  if(q.ax.includes("C")){c[0]+=pts;c[1]++} if(q.ax.includes("P")){p[0]+=pts;p[1]++}
+  if(tag) tags[tag]=(tags[tag]||0)+pts;});
+ const avg=n?sum/n:0, C=c[1]?c[0]/c[1]:0, Pp=p[1]?p[0]/p[1]:0;
+ let key;
+ if(emprise) key="ctrl";
+ else if(avg<=0.3) key="bien";
+ else if(avg<=0.7) key="chantier";
+ else { let best=null,bv=-1; PRIO.forEach(t=>{if((tags[t]||0)>bv){bv=tags[t]||0;best=t}}); key=bv>0?best:"chantier"; }
+ return {key,n,C,P:Pp};
+}
+
+function meter(label,l,r,v){return `<div class="meter"><p class="small"><b>${label}</b></p>
+ <div class="track" role="img" aria-label="${label} : ${Math.round(v/3*100)} %"><span class="dot" style="left:${Math.min(97,Math.max(3,v/3*100))}%"></span></div>
+ <div class="ends"><span>${l}</span><span>${r}</span></div></div>`}
+
+function result(){
+ const r=compute(), p=P[r.key];
+ const few=r.n<8?`<p class="small">Tu as répondu à ${r.n} situations sur ${Q.length} : le résultat est indicatif.</p>`:"";
+ const help=p.serious?`<div class="help">
+   <span class="num">3919</span>
+   <p><b>Violences Femmes Info</b> : gratuit, anonyme, 24h/24 et 7j/7. Le numéro n'apparaît pas sur la facture de téléphone.</p>
+   <p class="small">Tu ne peux pas parler ? Envoie un SMS au <b>114</b>. Tchat et infos : <a href="https://arretonslesviolences.gouv.fr" target="_blank" rel="noopener">arretonslesviolences.gouv.fr</a></p>
+  </div>`:"";
+ app.innerHTML=header()+`
+ <div class="result" style="--zone:var(${p.c})">
+  <span class="zone">${p.zone}</span>
+  <h1 style="color:var(--ink)">${p.n}</h1>
+  <p class="lead">${p.d}</p>
+  ${few}
+  ${help}
+  <div class="meters">
+   ${meter("Respect ou contrôle","Respecte ta liberté","Te contrôle",r.C)}
+   ${meter("Partage ou privilège","Partage tout","Se fait servir",r.P)}
+  </div>
+  <div><p class="eyebrow" style="margin-bottom:8px">Et maintenant ?</p><ul class="tips">${p.tips.map(t=>`<li>${t}</li>`).join("")}</ul></div>
+ </div>
+ `+avisForm()+`
+ <button class="btn ghost" id="again" type="button">Refaire le test</button>
+ <p class="foot">Un quiz pour rire, pas un diagnostic. Seule toi sais ce que tu vis.</p>`+COUNT+DISC;
+ countDone(); bindAvis();
+ document.getElementById("again").onclick=intro;
+ bindExit(); window.scrollTo(0,0);
+}
+
+function quickExit(){
+ ans=null; document.title="Tarte aux pommes";
+ app.innerHTML=`<div class="neutral"><p style="color:#888;font-size:14px">Recettes de saison</p>
+ <h3>Tarte aux pommes de grand-mère</h3>
+ <p>Pour 6 personnes : 1 pâte brisée, 5 pommes, 50 g de sucre, 30 g de beurre, 1 sachet de sucre vanillé.</p>
+ <p style="margin-top:10px">Préchauffe le four à 200 °C. Étale la pâte dans un moule, pique le fond. Épluche les pommes, coupe-les en fines lamelles et dispose-les en rosace. Saupoudre de sucre, parsème de beurre et enfourne 35 minutes.</p></div>`;
+ document.body.style.background="#fff";
+ try{location.replace("https://meteofrance.com")}catch(e){}
+}
+function bindExit(){const e=document.getElementById("exit"); if(e) e.onclick=quickExit;}
+document.addEventListener("keydown",e=>{if(e.key==="Escape") quickExit()});
+// Compteur anonyme (fonction Netlify). Masqué si indisponible.
+const COUNT='<p class="foot count" id="count" hidden></p>';
+let total=null;
+function paint(){const el=document.getElementById("count"); if(!el||total==null) return;
+ el.textContent=total<=1?`${total} quiz terminé`:`${total.toLocaleString("fr-FR")} quiz terminés`; el.hidden=false;}
+function showCount(){ if(total!=null){paint();return}
+ fetch("/api/compteur",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{if(d&&typeof d.total==="number"){total=d.total;paint()}}).catch(()=>{});}
+function countDone(){
+ fetch("/api/compteur",{method:"POST",cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{if(d&&typeof d.total==="number"){total=d.total;paint()}}).catch(()=>{});}
+// Avis anonymes (fonction Netlify /api/avis)
+let avisSent=false, avisCache=null;
+const MAXC=400;
+function fmtDate(d){try{const [y,m,j]=d.split("-").map(Number);return new Date(Date.UTC(y,m-1,j)).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}catch(e){return ""}}
+const starStr=n=>"★".repeat(n)+`<span class="off">${"★".repeat(3-n)}</span>`;
+function avisList(){return `<section class="avis" id="avis" hidden aria-labelledby="avis-t">
+ <div class="avis-head"><h2 id="avis-t">Ce qu'elles en disent</h2><span class="avg" id="avg"></span></div>
+ <div class="items" id="avis-items"></div>
+ <button class="btn ghost" id="avis-more" type="button" hidden>Voir plus d'avis</button></section>`}
+function paintAvis(d){
+ const sec=document.getElementById("avis"); if(!sec||!d||!d.count) return;
+ document.getElementById("avg").innerHTML=`<b>${d.avg.toLocaleString("fr-FR",{maximumFractionDigits:1})}</b> / 3 · ${d.count} avis`;
+ const items=Array.isArray(d.items)?d.items:[], box=document.getElementById("avis-items");
+ const render=n=>{box.innerHTML=items.slice(0,n).map(a=>{const n2=Math.max(1,Math.min(3,a.n|0));
+  return `<article class="avis-item"><div class="meta"><time datetime="${esc(String(a.d))}">${fmtDate(String(a.d))}</time><span class="stars" role="img" aria-label="${n2} étoile${n2>1?"s":""} sur 3">${starStr(n2)}</span></div><p>${esc(String(a.t))}</p></article>`}).join("")};
+ render(5);
+ const more=document.getElementById("avis-more");
+ if(items.length>5){more.hidden=false;more.onclick=()=>{render(items.length);more.hidden=true}}
+ sec.hidden=false;
+}
+function loadAvis(){
+ if(avisCache){paintAvis(avisCache);return}
+ fetch("/api/avis",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{if(d){avisCache=d;paintAvis(d)}}).catch(()=>{});
+}
+const merci=pending=>`<div class="avis-form"><p class="lead"><b>Merci pour ton avis !</b></p>${pending?'<p class="small">Ton commentaire apparaîtra sur la page d\'accueil après relecture.</p>':''}</div>`;
+function avisForm(){
+ if(avisSent) return merci(false);
+ return `<form class="avis-form" id="avis-form" novalidate>
+ <h2>Ton avis sur le quiz</h2>
+ <div class="star-pick" role="radiogroup" aria-label="Ta note sur 3">
+  ${[1,2,3].map(n=>`<button type="button" role="radio" aria-checked="false" aria-label="${n} étoile${n>1?"s":""}" data-n="${n}">★</button>`).join("")}
+ </div>
+ <label for="avis-texte">Ton commentaire <span class="small">(facultatif)</span></label>
+ <textarea id="avis-texte" maxlength="${MAXC}" rows="4" placeholder="Qu'as-tu pensé de ce quiz ?"></textarea>
+ <div class="chars" id="avis-chars">0 / ${MAXC}</div>
+ <p class="small">Parle du quiz, pas de ton mec : pas de nom, de lieu ni de détail qui permettrait de reconnaître quelqu'un. Ton avis est anonyme, seule la date s'affiche. Les commentaires sont relus avant publication.</p>
+ <input type="text" id="avis-site" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+ <button class="btn" type="submit" id="avis-send" disabled>Envoyer mon avis</button>
+ <p class="small" id="avis-msg" role="status"></p>
+ </form>`;
+}
+function bindAvis(){
+ const f=document.getElementById("avis-form"); if(!f) return;
+ let note=0;
+ const btns=f.querySelectorAll(".star-pick button"), send=document.getElementById("avis-send"),
+  msg=document.getElementById("avis-msg"), ta=document.getElementById("avis-texte"), chars=document.getElementById("avis-chars");
+ btns.forEach(b=>b.onclick=()=>{note=+b.dataset.n;
+  btns.forEach(x=>{x.classList.toggle("on",+x.dataset.n<=note);x.setAttribute("aria-checked",String(+x.dataset.n===note))});
+  send.disabled=false; msg.textContent="";});
+ ta.oninput=()=>{chars.textContent=`${ta.value.length} / ${MAXC}`};
+ f.onsubmit=e=>{e.preventDefault();
+  if(!note){msg.textContent="Choisis d'abord une note de 1 à 3 étoiles.";return}
+  send.disabled=true; msg.textContent="Envoi en cours…";
+  fetch("/api/avis",{method:"POST",headers:{"content-type":"application/json"},
+   body:JSON.stringify({note,texte:ta.value,site:document.getElementById("avis-site").value})})
+  .then(r=>r.ok?r.json():Promise.reject()).then(d=>{avisSent=true;avisCache=null;f.outerHTML=merci(d&&d.status==="pending")})
+  .catch(()=>{send.disabled=false;msg.textContent="L'envoi n'a pas marché. Vérifie ta connexion et réessaie."});
+ };
+}
+intro();
+</script>
+
+</body>
+</html>
